@@ -8,6 +8,7 @@
 #include <sys.stat.h>
 #include <unistd.h>
 #include <fcntl.h>
+void _printppid(void);
 int _putchar(char c);
 char *read_input(char *s);
 char **strtokarray(char *str);
