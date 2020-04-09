@@ -9,9 +9,9 @@ char **strtokarray(char *str)
 {
 	char **tokarray;
 	char *tok;
-	int c, c2, len, t;
+	int c, len, t;
 
-	c = c2 = len = t = 0;
+	c = len = t = 0;
 	len = strlen(str);
 	str[len] = '\0';
 	while (str[c] != '\0')
@@ -36,7 +36,7 @@ char **strtokarray(char *str)
 		tokarray[c] = malloc(len + 1);
 		if (tokarray[c] == NULL)
 		{
-			freearray(tokarray);
+			freeptrarray(tokarray);
 			return (NULL);
 		}
 		strncpy(tokarray[c], tok, len + 1);

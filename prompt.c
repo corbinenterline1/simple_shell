@@ -7,41 +7,58 @@
 int main(void)
 {
 	char *line = NULL;
-	char **cmds = NULL;
+	char **cmds;
 	size_t len = 0;
 	ssize_t wr, read;
 	char *start = "$ ";
 	pid_t child;
-	int status;
+	int a = 0, status, pidstatus;
 
-	while(STDOUT_FILENO)
-	{
+	if (isatty(STDIN_FILENO))
 		wr = write(STDOUT_FILENO, start, 2);
-		if (wr == -1)
-			exit(EXIT_FAILURE);
-		read = getline(&line, &len, stdin);
+	if (wr == -1)
+		exit (EXIT_FAILURE);
+	while ((read = getline(&line, &len, stdin)))
+	{
 		if (read == EOF)
 		{
-			putchar(10);
+			if (isatty(STDIN_FILENO))
+				write(STDIN_FILENO, "\n", 1);
 			free(line);
 			exit(EXIT_SUCCESS);
 		}
+		line[read - 1] = '\0';
 		cmds = strtokarray(line);
+		while (cmds[a])
+		{
+			printf("argument %d: %s\n", a, cmds[a]);
+			a++;
+		}
 		child = fork();
-		if (child == -1)
+		if (child == -1)/* Fork failed */
 		{
 			freeptrarray(cmds);
 			free(line);
+			dprintf(STDERR_FILENO, "fork failed\n");
 			exit(EXIT_FAILURE);
 		}
-		else if (child > 0)
-			waitpid(child, &status, 0);/* or just wait()? */
-		else
+		else if (child == 0)/* I am the child! */
 		{
-			printf("I am the child!\n");
-			execve(cmds[0], cmds, NULL);
-			printf("Error: execve failed\n");
+			status = execve(cmds[0], cmds, NULL);
 		}
+		else/* pid above 0, so thats ppid. wait until child ends */
+		{
+			waitpid(child, &pidstatus, WUNTRACED);	
+		}
+		if (status < 0)
+		{
+			dprintf(STDERR_FILENO, "%s: Command not found\n", cmds[0]);
+			status = 0;
+		}
+		if (isatty(STDIN_FILENO))
+			wr = write(STDOUT_FILENO, start, 2);
+		a = len = 0;
+		line = NULL;
 	}
 	exit(EXIT_SUCCESS);
 }
