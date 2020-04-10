@@ -12,8 +12,6 @@ char **strtokarray(char *str)
 	int c, len, t;
 
 	c = len = t = 0;
-	len = strlen(str);
-	str[len] = '\0';
 	while (str[c] != '\0')
 	{
 		if (str[c + 1] == ' ' || str[c + 1] == '\0')
@@ -22,7 +20,8 @@ char **strtokarray(char *str)
 	}
 	if (c == 0)
 		return (NULL);
-	tokarray = malloc(sizeof(char) * (t + 1));
+	str[strlen(str) - 1] = '\0';
+	tokarray = malloc(sizeof(char *) * (t + 1));
 	if (tokarray == NULL)
 	{
 		free(tokarray);
