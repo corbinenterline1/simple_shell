@@ -12,7 +12,8 @@ int main(void)
 	ssize_t wr, read;
 	char *start = "$ ";
 	pid_t child;
-	int a = 0, status, pidstatus;
+	int a = 0, pidstatus;
+	struct stat sstat;
 
 	if (isatty(STDIN_FILENO))
 		wr = write(STDOUT_FILENO, start, 2);
@@ -27,34 +28,55 @@ int main(void)
 			free(line);
 			exit(EXIT_SUCCESS);
 		}
-		line[read - 1] = '\0';
+		if (read == 0)
+		{
+			if (isatty(STDIN_FILENO))
+				write(STDIN_FILENO, "\n", 1);
+			continue;
+		}
 		cmds = strtokarray(line);
 		while (cmds[a])
 		{
 			printf("argument %d: %s\n", a, cmds[a]);
 			a++;
 		}
+		if (cmds == NULL)
+		{
+			free(line);
+			if (isatty(STDIN_FILENO))
+				wr = write(STDOUT_FILENO, start, 2);
+			a = len = 0;
+			continue;
+		}
 		child = fork();
 		if (child == -1)/* Fork failed */
 		{
-			freeptrarray(cmds);
-			free(line);
-			dprintf(STDERR_FILENO, "fork failed\n");
+			perror("Error:");
 			exit(EXIT_FAILURE);
 		}
 		else if (child == 0)/* I am the child! */
 		{
-			status = execve(cmds[0], cmds, NULL);
+			if (stat(cmds[0], &sstat) == 0)
+				execve(cmds[0], cmds, NULL);
+			else
+			{
+				perror("Error:");
+				free(line);
+				freeptrarray(cmds);
+				exit(EXIT_SUCCESS);
+			}
 		}
 		else/* pid above 0, so thats ppid. wait until child ends */
 		{
-			waitpid(child, &pidstatus, WUNTRACED);	
+			waitpid(child, &pidstatus, WUNTRACED);
+			free(line);
+			freeptrarray(cmds);	
 		}
-		if (status < 0)
+		/*if (status < 0)
 		{
 			dprintf(STDERR_FILENO, "%s: Command not found\n", cmds[0]);
 			status = 0;
-		}
+		}*/
 		if (isatty(STDIN_FILENO))
 			wr = write(STDOUT_FILENO, start, 2);
 		a = len = 0;
