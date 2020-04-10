@@ -51,7 +51,7 @@ int main(void)
 		child = fork();
 		if (child == -1)/* Fork failed */
 		{
-			perror("Error:");
+			perror("./hsh");
 			exit(EXIT_FAILURE);
 		}
 		else if (child == 0)/* I am the child! */
@@ -60,7 +60,7 @@ int main(void)
 				execve(cmds[0], cmds, NULL);
 			else
 			{
-				perror("Error:");
+				perror("./hsh");
 				free(line);
 				freeptrarray(cmds);
 				exit(EXIT_SUCCESS);
