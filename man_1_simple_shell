@@ -1,0 +1,39 @@
+.TH man 1 "10 April 2020" "ver 1.0" "simple_shell man page"
+.SH NAME
+.B simple_shell, hsh
+\- holberton simple command language interpreter
+.SH SYNOPSIS
+.B hsh
+.I [command_file [argument...]]
+.B builtin-name
+.I [command_file [argument...]]
+.SH DESCRIPTION
+hsh is an sh-compatible command language interpreter intended for simple implementation of a shell in C, in that it executes commands read from the standard input or from a file.
+.SH INVOCATION
+To invoke the interactive mode of hsh, 
+.B ./hsh
+\ is typed into the emulator command line. To invoke the non-interactive mode, pipe command through
+.I echo
+\ or
+.I cat. 
+.TP
+Example 1:
+echo "/bin/ls" | ./hsh
+.TP
+Example 2:
+cat test_ls_2 | ./hsh
+.SH BUILTIN COMMANDS
+.TP
+.B exit
+.I [n]
+Cause the shell to exit with a status of n. If n is omitted, the exit status is thatof the last command executed. A trap on EXIT is executed before the shell terminates.
+.SH RETURN VALUE
+The return value of a simple command is its exit status.
+.SH EXAMPLE
+.SH SEE ALSO
+.I sh(1)
+.SH NOTE
+.SH BUGS
+No known bugs.... ?
+.SH AUTHOR
+Corbin Enterline and Jill Rogers.
