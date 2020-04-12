@@ -1,9 +1,11 @@
 #include "holberton.h"
 
 /**
- *
- *
- */
+* main - Entry point to shell program
+*
+* Description: Simple shell program
+* Return: 0 Successful
+*/
 int main(void)
 {
 	char *line = NULL;
@@ -18,7 +20,7 @@ int main(void)
 	if (isatty(STDIN_FILENO))
 		wr = write(STDOUT_FILENO, start, 2);
 	if (wr == -1)
-		exit (EXIT_FAILURE);
+		exit(EXIT_FAILURE);
 	while ((read = getline(&line, &len, stdin)))
 	{
 		if (read == EOF)
@@ -48,10 +50,16 @@ int main(void)
 			a = len = 0;
 			continue;
 		}
+		if (strcmp("exit", cmds[0]) == 0)
+		{
+			free(line);
+			freeptrarray(cmds);
+			exit(0);
+		}
 		child = fork();
 		if (child == -1)/* Fork failed */
 		{
-			perror("Error:");
+			perror("./hsh");
 			exit(EXIT_FAILURE);
 		}
 		else if (child == 0)/* I am the child! */
@@ -60,7 +68,7 @@ int main(void)
 				execve(cmds[0], cmds, NULL);
 			else
 			{
-				perror("Error:");
+				perror("./hsh");
 				free(line);
 				freeptrarray(cmds);
 				exit(EXIT_SUCCESS);
@@ -70,13 +78,8 @@ int main(void)
 		{
 			waitpid(child, &pidstatus, WUNTRACED);
 			free(line);
-			freeptrarray(cmds);	
+			freeptrarray(cmds);
 		}
-		/*if (status < 0)
-		{
-			dprintf(STDERR_FILENO, "%s: Command not found\n", cmds[0]);
-			status = 0;
-		}*/
 		if (isatty(STDIN_FILENO))
 			wr = write(STDOUT_FILENO, start, 2);
 		a = len = 0;
