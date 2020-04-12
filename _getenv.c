@@ -13,7 +13,7 @@
  *
  *
  */
-char *_getenv(const char :*name)
+char *_getenv(const char *name)
 {
 	char **ep = environ;
 	char *np;
