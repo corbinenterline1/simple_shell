@@ -51,8 +51,11 @@ int main(void)
 			continue;
 		}
 		if (strcmp("exit", cmds[0]) == 0)
+		{
+			free(line);
+			freeptrarray(cmds);
 			exit(0);
-
+		}
 		child = fork();
 		if (child == -1)/* Fork failed */
 		{
