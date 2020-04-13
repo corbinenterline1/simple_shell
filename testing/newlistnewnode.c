@@ -15,8 +15,10 @@ char *str_concat(char *s1, char *s2)
 		s2 = malloc(1);
 		*s2 = '\0';
 	}
-	t = (_strlen(s1) + _strlen(s2) + 1);
-	cpy = malloc(t);
+	t = _strlen(s1);
+	t += _strlen(s2);
+	t += 1;
+	cpy = malloc(sizeof(char) * t);
 	if (cpy == NULL)
 		return (NULL);
 	for (a = 0; s1[a] != '\0'; a++)
@@ -28,73 +30,70 @@ char *str_concat(char *s1, char *s2)
 	cpy[a] = '\0';
 	return (cpy);
 }
-
-char *pathchecker(char *arg)
+char *pathchecker(list_p **head, char *arg)
 {
-	list_p *pather;
 	struct stat statty;
-	char *append = "/";
-	char *str, *str2;/*str2 was pathcpy*/
-	
-	str = NULL;
-	str2 = NULL;
-	pather = pathlist();/* free pather at end */
+	char *slas = "/";
+	char *str, *slarg, *tester;
+	list_p *cpy;
 
-	while (pather != NULL)
+	cpy = *head;
+
+	str = arg;
+	slarg = str_concat(slas, str);
+	str = NULL;
+	while (cpy)
 	{
-		str2 = pather->str;
-		str = str_concat(str2, append);/* need to free str2 */
-		str2 = str_concat(str, arg);
-		free(str);
-		if (stat(str2, &statty) == 0)
+		str = cpy->str;
+		tester = str_concat(str, slarg);
+		if(stat(tester, &statty) == 0)
 		{
-			free_list(pather);
-			return (str2);
+			free(slarg);
+			return (tester);
 		}
 		else
 		{
-		free(str2);
-		str = NULL;
-		str2 = NULL;
-		pather = pather->next;
+		free(tester);
+		cpy = cpy->next;
 		}
 	}
-	free(pather);
-	return (NULL);
+	free(slarg);
+	return(NULL);
 }
 
 int main(void)
 {
 	char *str = "ls";
-	char *result = NULL;
+	char *path = NULL;
+	list_p *pathy;
 
-	result = pathchecker(str);
-	if (result != NULL)
+	pathy = pathlist();
+	path = pathchecker(&pathy, str);
+	if (path != NULL)
 		printf("Success!\n");
 	else
 		printf("Fail\n");
-	free(result);
+	free(path);
+	free_list(pathy);
 	return (0);
 }
-
 list_p *pathlist(void)
 {
-	list_p *pathlist;
+	list_p *pather;
 	char *path;
 	char *strp;
 
 	path = _getenv("PATH");
 	strp = strtok(path, ":");
-	pathlist = createpathlist(strp);
+	pather = createpathlist(strp);
 	strp = strtok(NULL, ":");
 	while (strp != NULL)
 	{
 		
-		add_node(&pathlist, strp);
+		add_node(&pather, strp);
 		strp = strtok(NULL, ":");
-
 	}
-	return (pathlist);
+	return (pather);
 }
 list_p *add_node(list_p **head, char *str)
 {
@@ -102,11 +101,13 @@ list_p *add_node(list_p **head, char *str)
 	char *newstr;
 	int l;
 
+	/*tmp->str = NULL;*/
 	tmp = malloc(sizeof(list_p));
 	if (tmp == NULL)
 		return (NULL);
 	l = _strlen(str);
-	newstr = malloc(sizeof(char) * (l + 1));
+	l += 1;
+	newstr = malloc(sizeof(char) * (l));
 	if (newstr == NULL)
 	{
 		free(tmp);
@@ -128,7 +129,7 @@ list_p *createpathlist(char *str)
 	if (tmp == NULL)
 		return (NULL);
 	l = _strlen(str);
-	newstr = malloc(sizeof(char) * (l + 1));
+	newstr = malloc((sizeof(char)) * (l + 1));
 	if (newstr == NULL)
 	{
 		free(tmp);
