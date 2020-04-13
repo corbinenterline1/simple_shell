@@ -16,4 +16,16 @@ void freeptrarray(char **ptr);
 char *_strncpy(char *dest, char *src, int n);
 int _strlen(char *s);
 int execute_input(char *argv[]);
+char *_getenv(const char *name);
+extern char **environ;
+typedef struct pathlist
+{
+	char *str;
+	struct pathlist *next;
+} list_p;
+list_p *add_node(list_p **head, char *str);
+list_p *createpathlist(char *str);
+size_t print_list(const list_p *h);
+void free_list(list_p *head);
+list_p *pathlist(void);
 #endif /*HOLBERTON_H*/
