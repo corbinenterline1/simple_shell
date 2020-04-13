@@ -1,99 +1,81 @@
 #include "holberton.h"
+char *str_concat(char *s1, char *s2)
+{
+	char *cpy = NULL;
+	int t, a, b;
 
+	t = a = b = 0;
+	if (s1 == NULL)
+	{
+		s1 = malloc(1);
+		*s1 = '\0';
+	}
+	if (s2 == NULL)
+	{
+		s2 = malloc(1);
+		*s2 = '\0';
+	}
+	t = _strlen(s1);
+	t += _strlen(s2);
+	t += 1;
+	cpy = malloc(sizeof(char) * t);
+	if (cpy == NULL)
+		return (NULL);
+	for (a = 0; s1[a] != '\0'; a++)
+		cpy[a] = s1[a];
+	for (b = 0; a != t && s2[b] != '\0'; b++, a++)
+	{
+		cpy[a] = s2[b];
+	}
+	cpy[a] = '\0';
+	return (cpy);
+}
 
 char *pathchecker(char *arg)
 {
 	list_p *pather;
 	struct stat statty;
-	char *str, *pathcpy;
-	int a, b, c, l, larg, strl;
-
+	char *append = "/";
+	char *str, *str2;/*str2 was pathcpy*/
 	
-	a = l = larg = 0;
+	str = NULL;
+	str2 = NULL;
 	pather = pathlist();/* free pather at end */
-	larg = _strlen(arg);
 
-	printf("larg = %d\n", larg);
 	while (pather != NULL)
 	{
-		l = _strlen(pather->str);
-		printf("l = %d\n", l);
-		strl = l + larg;
-		printf("strl = %d\n", strl);
-		str = malloc(sizeof(char) * (strl + 2));/* total argument with directory, FREE */
-		if (str == NULL)
-		{
-			free_list(pather);
-			return (NULL);
-		}
-		pathcpy = malloc(sizeof(char) * (l + 1));/* cpy of directory to traverse, FREE */
-		if (pathcpy == NULL)
-		{
-			free_list(pather);
-			free(str);
-			return (NULL);
-		}
-		pathcpy = _strncpy(pathcpy, pather->str, l);
-		printf("pathcpy after cpy: %s\n", pathcpy);
-		for (b = 0; b < strl && pathcpy != '\0'; b++)
-			str[b] = pathcpy[b];
-		printf("after path cpy, before /, : %s\n", str);
-		str[b] = '/';
-		printf("after / : %s\n", str);
-		b++;
-		for (c = 0; c < larg && arg[c] != '\0'; b++, c++)
-			str[b] = arg;
-		str[b] = '\0';
-		printf("String to be checked with stat: %s\n", str);
-		if (stat(str, &statty) == 0)
-		{
-			free_list(pather);
-			free(pathcpy);
-			return (str);
-		}
-		a++;
-		pather = pather->next;
-		free(pathcpy);
+		str2 = pather->str;
+		str = str_concat(str2, append);/* need to free str2 */
+		str2 = str_concat(str, arg);
 		free(str);
+		if (stat(str2, &statty) == 0)
+		{
+			free_list(pather);
+			return (str2);
+		}
+		else
+		{
+		free(str2);
+		/*str = NULL;
+		str2 = NULL;*/
+		pather = pather->next;
+		}
 	}
-	free_list(pather);
-	free(str);
+	free(pather);
+	free(str2);
 	return (NULL);
 }
 
-
-
-
-
-char *pathchecker(char *arg)
+int main(void)
 {
-	list_p *pather;
-	struct stat statty;
-	char *buffer, *pathcpy;
-	int larg, lpath, ltotal, a;
-
-	larg = lpath = ltotal = a = 0;
-	
-
-
-
-
-}
-int main (void)
-{
-	char *str = "qwerty";
+	char *str = "ls";
 	char *result = NULL;
-
 	result = pathchecker(str);
-	printf("Here's the result!: %s\n", result);
 	if (result != NULL)
 		printf("Success!\n");
 	else
 		printf("Fail\n");
 	free(result);
-	/*test = pathlist();
-	print_list(test);
-	free_list(test);*/
 	return (0);
 }
 
@@ -112,7 +94,6 @@ list_p *pathlist(void)
 		
 		add_node(&pathlist, strp);
 		strp = strtok(NULL, ":");
-
 	}
 	return (pathlist);
 }
@@ -122,11 +103,13 @@ list_p *add_node(list_p **head, char *str)
 	char *newstr;
 	int l;
 
+	/*tmp->str = NULL;*/
 	tmp = malloc(sizeof(list_p));
 	if (tmp == NULL)
 		return (NULL);
 	l = _strlen(str);
-	newstr = malloc(sizeof(char) * (l + 1));
+	l += 1;
+	newstr = malloc(sizeof(char) * (l));
 	if (newstr == NULL)
 	{
 		free(tmp);
@@ -148,7 +131,7 @@ list_p *createpathlist(char *str)
 	if (tmp == NULL)
 		return (NULL);
 	l = _strlen(str);
-	newstr = malloc(sizeof(char) * (l + 1));
+	newstr = malloc((sizeof(char)) * (l + 1));
 	if (newstr == NULL)
 	{
 		free(tmp);
@@ -158,25 +141,6 @@ list_p *createpathlist(char *str)
 	tmp->str = newstr;
 	tmp->next = NULL;
 	return (tmp);
-}
-
-size_t print_list(const list_p *h)
-{
-	int nc = 0;
-
-	while (h != NULL)
-	{
-		if (h->str == NULL)
-		{
-			printf("[0] (nil)\n");
-			h = h->next;
-			nc++;
-		}
-		printf("%s\n", h->str);
-		nc++;
-		h = h->next;
-	}
-	return (nc);
 }
 void free_list(list_p *head)
 {
