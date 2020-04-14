@@ -5,7 +5,7 @@
 * Description: program for shell implementation
 * Return: 0 Always Successful
 */
-int main(void)
+int main(int ac, char **av, char **env)
 {
 	char *line = NULL;
 	char **cmds;
@@ -22,16 +22,8 @@ int main(void)
 	{
 		line = read_input();
 		if (line == 0)
-		{
 			continue;
-		
-		}
 		cmds = strtokarray(line);
-		while (cmds[a])
-		{
-			printf("argument %d: %s\n", a, cmds[a]);
-			a++;
-		}
 		if (cmds == NULL)
 		{
 			free(line);
@@ -46,8 +38,18 @@ int main(void)
 			freeptrarray(cmds);
 			exit(0);
 		}
-		if (cmds != NULL)
-			execute_input(cmds);
+		if (strcmp("env", cmds[0]) == 0)
+		{
+			free(line);
+			freeptrarray(cmds);
+			env_print(env);
+			a = len = 0;
+			if (isatty(STDIN_FILENO))
+				write(STDOUT_FILENO, start, 2);
+			continue;
+
+		}
+		execute_input(cmds);
 		if (isatty(STDIN_FILENO))
 			wr = write(STDOUT_FILENO, start, 2);
 		free(line);
