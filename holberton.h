@@ -16,6 +16,7 @@ void freeptrarray(char **ptr);
 char *_strncpy(char *dest, char *src, int n);
 int _strlen(char *s);
 int _strncmp(const char *s1, const char *s2, size_t n);
+int _strcmp(char *s1, char *s2);
 char *str_concat(char *s1, char *s2);
 int execute_input(char *argv[]);
 char *_getenv(const char *name);
