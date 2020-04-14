@@ -49,25 +49,26 @@ void env_print(char **env)
 }
 
 /**
- * pathandfree - driver function for path creation and checking
- * @arg: argument to test
- * Return: new string if successful, NULL otherwise
+ * pathandfree - creates path list, checks arg, frees path list
+ * @arg: input argument to check
+ * Return: string if successful, NULL otherwise
  */
 char *pathandfree(char *arg)
 {
-	list_p *path;
-	char *ptr = NULL, *carg = NULL;
+	list_p *pathy;
+	char *str;
 
-	path = pathlist();
-	carg = arg;
-	ptr = pathchecker(&path, carg);
-	printf("ptr: %s\n", ptr);
-	free_list(path);
-	if (ptr == NULL)
+	pathy = pathlist();
+	str = pathchecker(&pathy, arg);
+	if (str == NULL)
 	{
-		free(ptr);
+		free_list(pathy);
+		free(str);
 		return (NULL);
 	}
 	else
-		return (ptr);
+	{
+		free_list(pathy);
+		return (str);
+	}
 }

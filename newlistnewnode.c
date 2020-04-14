@@ -11,14 +11,12 @@ char *pathchecker(list_p **head, char *arg)
 {
 	struct stat statty;
 	char *slas = "/";
-	char *str, *slarg, *tester;
+	char *str = NULL, *slarg = NULL, *tester = NULL;
 	list_p *cpy;
 
 	cpy = *head;
 
-	str = arg;
-	slarg = str_concat(slas, str);
-	str = NULL;
+	slarg = str_concat(slas, arg);
 	while (cpy)
 	{
 		str = cpy->str;
@@ -45,8 +43,8 @@ char *pathchecker(list_p **head, char *arg)
 list_p *pathlist(void)
 {
 	list_p *pather;
-	char *path;
-	char *strp;
+	char *path = NULL;
+	char *strp = NULL;
 
 	path = _getenv("PATH");
 	strp = strtok(path, ":");
@@ -70,7 +68,7 @@ list_p *pathlist(void)
 list_p *add_node(list_p **head, char *str)
 {
 	list_p *tmp;
-	char *newstr;
+	char *newstr = NULL;
 	int l;
 
 	/*tmp->str = NULL;*/
@@ -100,7 +98,7 @@ list_p *add_node(list_p **head, char *str)
 list_p *createpathlist(char *str)
 {
 	list_p *tmp;
-	char *newstr;
+	char *newstr = NULL;
 	int l;
 
 	tmp = malloc(sizeof(list_p));

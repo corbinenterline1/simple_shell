@@ -38,4 +38,5 @@ list_p *pathlist(void);
 void env_print(char **env);
 char *pathandfree(char *arg);
 char *pathchecker(list_p **head, char *arg);
+int spacecheck(char *line);
 #endif /*HOLBERTON_H*/

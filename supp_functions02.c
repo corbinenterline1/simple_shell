@@ -19,7 +19,7 @@ char *_getenv(const char *name)
 		np = ep[a];
 		while (np[b] != '=')
 			b++;
-		if (strncmp(np, name, b) == 0)
+		if (_strncmp(np, name, b) == 0)
 		{
 			while (b > 0)
 			{
@@ -53,7 +53,7 @@ char **strtokarray(char *str)
 	}
 	if (c == 0)
 		return (NULL);
-	str[strlen(str) - 1] = '\0';
+	str[_strlen(str) - 1] = '\0';
 	tokarray = malloc(sizeof(char *) * (t + 1));
 	if (tokarray == NULL)
 	{
@@ -64,14 +64,14 @@ char **strtokarray(char *str)
 	c = 0;
 	while (tok != NULL)
 	{
-		len = strlen(tok);
+		len = _strlen(tok);
 		tokarray[c] = malloc(len + 1);
 		if (tokarray[c] == NULL)
 		{
 			freeptrarray(tokarray);
 			return (NULL);
 		}
-		strncpy(tokarray[c], tok, len + 1);
+		_strncpy(tokarray[c], tok, len + 1);
 		tok = strtok(NULL, " ");
 		c++;
 	}
@@ -90,6 +90,7 @@ int execute_input(char *argv[])
 	int status;
 	struct stat sstat;
 	pid_t child;
+	char *str = NULL;
 
 	child = fork();
 	if (child == -1)/* Fork failed */
@@ -103,15 +104,23 @@ int execute_input(char *argv[])
 			execve(argv[0], argv, NULL);
 		else
 		{
-			perror("./hsh");
-			freeptrarray(argv);
-			exit(EXIT_FAILURE);
+			str = pathandfree(argv[0]);
+			if (str == NULL)
+			{
+				perror("./hsh");
+				freeptrarray(argv);
+				free(str);
+				exit(EXIT_FAILURE);
+			}
+			else
+				execve(str, argv, NULL);
 		}
 	}
 	else/* pid above 0, so thats ppid. wait until child ends */
 	{
 		waitpid(child, &status, WUNTRACED);
 		freeptrarray(argv);
+		/*free(str);*/
 	}
 	return (0);
 }

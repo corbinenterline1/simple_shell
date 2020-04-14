@@ -6,8 +6,10 @@
 * @env: environment list
 * Return: 0 Always Successful
 */
-int main(int ac, char **av, char **env)
+int main(__attribute__((unused))int ac,
+	__attribute((unused))char **av, char **env)
 {
+
 	char *line = NULL;
 	char **cmds;
 
