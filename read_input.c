@@ -1,9 +1,6 @@
 #include "holberton.h"
 /**
 * read_input - function
-* @s: string to read
-*
-* Description: reads input from stdin
 * Return: 0 (Exit Success)
 */
 char *read_input(void)
@@ -20,27 +17,57 @@ char *read_input(void)
 		free(line);
 		exit(EXIT_SUCCESS);
 	}
-	if (read == 0)/* do we need this??*/
-	{
-		if (isatty(STDIN_FILENO))
-		{
-			write(STDIN_FILENO, "\n", 1);
-			write(STDIN_FILENO, "$ ", 2);
-			free(line);
-			return (NULL);
-/*continue;*/
-		}
-	}
 	if (read == 1)
 	{
+		free(line);
 		if (isatty(STDIN_FILENO))
-		{
-			free(line);
 			write(STDOUT_FILENO, "$ ", 2);
-			printf("read is %zd\n", read);
-			return(NULL);
-		}
-	/*	continue;*/
+		return (NULL);
 	}
 	return (line);
+}
+
+/**
+ * env_print - prints environment
+ * @env: environment list
+ */
+void env_print(char **env)
+{
+	int a = 0, l = 0;
+	char *str = NULL;
+
+	while (env[a] != NULL)
+	{
+		str = env[a];
+		l = _strlen(str);
+		write(STDIN_FILENO, str, l);
+		write(STDIN_FILENO, "\n", 1);
+		a++;
+	}
+	if (isatty(STDIN_FILENO))
+		write(STDOUT_FILENO, "$ ", 2);
+}
+
+/**
+ * pathandfree - driver function for path creation and checking
+ * @arg: argument to test
+ * Return: new string if successful, NULL otherwise
+ */
+char *pathandfree(char *arg)
+{
+	list_p *path;
+	char *ptr = NULL, *carg = NULL;
+
+	path = pathlist();
+	carg = arg;
+	ptr = pathchecker(&path, carg);
+	printf("ptr: %s\n", ptr);
+	free_list(path);
+	if (ptr == NULL)
+	{
+		free(ptr);
+		return (NULL);
+	}
+	else
+		return (ptr);
 }

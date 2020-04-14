@@ -1,102 +1,72 @@
 #include "holberton.h"
-char *str_concat(char *s1, char *s2)
-{
-	char *cpy = NULL;
-	int t, a, b;
 
-	t = a = b = 0;
-	if (s1 == NULL)
-	{
-		s1 = malloc(1);
-		*s1 = '\0';
-	}
-	if (s2 == NULL)
-	{
-		s2 = malloc(1);
-		*s2 = '\0';
-	}
-	t = _strlen(s1);
-	t += _strlen(s2);
-	t += 1;
-	cpy = malloc(sizeof(char) * t);
-	if (cpy == NULL)
-		return (NULL);
-	for (a = 0; s1[a] != '\0'; a++)
-		cpy[a] = s1[a];
-	for (b = 0; a != t && s2[b] != '\0'; b++, a++)
-	{
-		cpy[a] = s2[b];
-	}
-	cpy[a] = '\0';
-	return (cpy);
-}
-
-char *pathchecker(char *arg)
+/**
+ * pathchecker - Checks the path list for said argument
+ * with each directory + '/' prepended to the argument.
+ * @head: double pointer to head of singly-linked list containing PATH
+ * @arg: argument to test
+ * Return: Successful prepended string, or NULL if failed
+ */
+char *pathchecker(list_p **head, char *arg)
 {
-	list_p *pather;
 	struct stat statty;
-	char *append = "/";
-	char *str, *str2;/*str2 was pathcpy*/
-	
-	str = NULL;
-	str2 = NULL;
-	pather = pathlist();/* free pather at end */
+	char *slas = "/";
+	char *str, *slarg, *tester;
+	list_p *cpy;
 
-	while (pather != NULL)
+	cpy = *head;
+
+	str = arg;
+	slarg = str_concat(slas, str);
+	str = NULL;
+	while (cpy)
 	{
-		str2 = pather->str;
-		str = str_concat(str2, append);/* need to free str2 */
-		str2 = str_concat(str, arg);
-		free(str);
-		if (stat(str2, &statty) == 0)
+		str = cpy->str;
+		tester = str_concat(str, slarg);
+		if (stat(tester, &statty) == 0)
 		{
-			free_list(pather);
-			return (str2);
+			free(slarg);
+			return (tester);
 		}
 		else
 		{
-		free(str2);
-		/*str = NULL;
-		str2 = NULL;*/
-		pather = pather->next;
+		free(tester);
+		cpy = cpy->next;
 		}
 	}
-	free(pather);
-	free(str2);
+	free(slarg);
 	return (NULL);
 }
 
-int main(void)
-{
-	char *str = "ls";
-	char *result = NULL;
-	result = pathchecker(str);
-	if (result != NULL)
-		printf("Success!\n");
-	else
-		printf("Fail\n");
-	free(result);
-	return (0);
-}
-
+/**
+ * pathlist - Creates a singly linked list of each directory from PATH
+ * Return: Pointer to head of linked list containing split up PATH
+ */
 list_p *pathlist(void)
 {
-	list_p *pathlist;
+	list_p *pather;
 	char *path;
 	char *strp;
 
 	path = _getenv("PATH");
 	strp = strtok(path, ":");
-	pathlist = createpathlist(strp);
+	pather = createpathlist(strp);
 	strp = strtok(NULL, ":");
 	while (strp != NULL)
 	{
-		
-		add_node(&pathlist, strp);
+
+		add_node(&pather, strp);
 		strp = strtok(NULL, ":");
 	}
-	return (pathlist);
+	return (pather);
 }
+
+/**
+ * add_node - Adds new node at head of linked list
+ * @head: double pointer to head of linked list
+ * @str: string to add in new node
+ * Return: new pointer to head, or NULL if failed
+ */
 list_p *add_node(list_p **head, char *str)
 {
 	list_p *tmp;
@@ -113,7 +83,7 @@ list_p *add_node(list_p **head, char *str)
 	if (newstr == NULL)
 	{
 		free(tmp);
-		return(NULL);
+		return (NULL);
 	}
 	newstr = _strncpy(newstr, str, l);
 	tmp->str = newstr;
@@ -121,6 +91,12 @@ list_p *add_node(list_p **head, char *str)
 	*head = tmp;
 	return (tmp);
 }
+
+/**
+ * createpathlist - creates new singly linked list from first dir of PATH
+ * @str: input string (in this instance, first directory of PATH)
+ * Return: pointer to head of linked list, or NULL if fail
+ */
 list_p *createpathlist(char *str)
 {
 	list_p *tmp;
@@ -135,13 +111,18 @@ list_p *createpathlist(char *str)
 	if (newstr == NULL)
 	{
 		free(tmp);
-		return(NULL);
+		return (NULL);
 	}
 	newstr = _strncpy(newstr, str, l);
 	tmp->str = newstr;
 	tmp->next = NULL;
 	return (tmp);
 }
+
+/**
+ * free_list - Frees up linked list & all node strings
+ * @head: pointer to head of list
+ */
 void free_list(list_p *head)
 {
 	list_p *new;

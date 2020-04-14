@@ -87,7 +87,7 @@ char **strtokarray(char *str)
 */
 int execute_input(char *argv[])
 {
-	int status, i;
+	int status;
 	struct stat sstat;
 	pid_t child;
 
@@ -104,15 +104,13 @@ int execute_input(char *argv[])
 		else
 		{
 			perror("./hsh");
-	/*              free(line);*/
 			freeptrarray(argv);
-			exit(EXIT_SUCCESS);
+			exit(EXIT_FAILURE);
 		}
 	}
 	else/* pid above 0, so thats ppid. wait until child ends */
 	{
 		waitpid(child, &status, WUNTRACED);
-		/*      free(line);*/
 		freeptrarray(argv);
 	}
 	return (0);

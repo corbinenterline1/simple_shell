@@ -10,16 +10,21 @@
 #include <fcntl.h>
 void _printppid(void);
 int _putchar(char c);
-char *read_input(void);/* was char *s)*/
+char *read_input(void);
 char **strtokarray(char *str);
 void freeptrarray(char **ptr);
 char *_strncpy(char *dest, char *src, int n);
 int _strlen(char *s);
-int _strncmp(const char* s1, const char* s2, size_t n);
+int _strncmp(const char *s1, const char *s2, size_t n);
 char *str_concat(char *s1, char *s2);
 int execute_input(char *argv[]);
 char *_getenv(const char *name);
 extern char **environ;
+/**
+ * struct pathlist - nodes for singly linked list of PATH directories
+ * @str: single directory from PATH
+ * @next: pointer to next node in list
+ */
 typedef struct pathlist
 {
 	char *str;
@@ -30,4 +35,7 @@ list_p *createpathlist(char *str);
 size_t print_list(const list_p *h);
 void free_list(list_p *head);
 list_p *pathlist(void);
+void env_print(char **env);
+char *pathandfree(char *arg);
+char *pathchecker(list_p **head, char *arg);
 #endif /*HOLBERTON_H*/
