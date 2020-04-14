@@ -6,7 +6,8 @@
 * @env: environment list
 * Return: 0 Always Successful
 */
-int main(int ac, char **av, char **env)
+int spacecheck(char *line);
+int main(__attribute__((unused))int ac, __attribute((unused))char **av, char **env)
 {
 	char *line = NULL;
 	char **cmds;
@@ -31,12 +32,12 @@ int main(int ac, char **av, char **env)
 				write(STDOUT_FILENO, "$ ", 2);
 			continue;
 		}
-		if (strcmp("exit", cmds[0]) == 0)
+		if (_strcmp("exit", cmds[0]) == 0)
 		{
 			freeptrarray(cmds);
 			exit(0);
 		}
-		if (strcmp("env", cmds[0]) == 0)
+		if (_strcmp("env", cmds[0]) == 0)
 		{
 			env_print(env);
 			freeptrarray(cmds);
