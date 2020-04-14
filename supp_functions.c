@@ -70,3 +70,42 @@ int _strncmp(const char *s1, const char *s2, size_t n)
 	}
 	return (0);
 }
+/**
+* str_concat - function
+* @s1: string to add to
+* @s2: string to add
+*
+* Description: functions to concat two strings
+* Return: string
+*/
+char *str_concat(char *s1, char *s2)
+{
+	char *cpy = NULL;
+	int t, a, b;
+
+	t = a = b = 0;
+	if (s1 == NULL)
+	{
+		s1 = malloc(1);
+		*s1 = '\0';
+	}
+	if (s2 == NULL)
+	{
+		s2 = malloc(1);
+		*s2 = '\0';
+	}
+	t = _strlen(s1);
+	t += _strlen(s2);
+	t += 1;
+	cpy = malloc(sizeof(char) * t);
+	if (cpy == NULL)
+		return (NULL);
+	for (a = 0; s1[a] != '\0'; a++)
+		cpy[a] = s1[a];
+	for (b = 0; a != t && s2[b] != '\0'; b++, a++)
+	{
+		cpy[a] = s2[b];
+	}
+	cpy[a] = '\0';
+	return (cpy);
+}
