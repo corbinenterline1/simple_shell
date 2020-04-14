@@ -23,16 +23,22 @@ char *read_input(void)
 	if (read == 0)/* do we need this??*/
 	{
 		if (isatty(STDIN_FILENO))
+		{
 			write(STDIN_FILENO, "\n", 1);
+			write(STDIN_FILENO, "$ ", 2);
+			free(line);
+			return (NULL);
 /*continue;*/
+		}
 	}
 	if (read == 1)
 	{
 		if (isatty(STDIN_FILENO))
 		{
+			free(line);
 			write(STDOUT_FILENO, "$ ", 2);
 			printf("read is %zd\n", read);
-			return(0);
+			return(NULL);
 		}
 	/*	continue;*/
 	}

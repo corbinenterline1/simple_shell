@@ -10,7 +10,7 @@ int main(void)
 	char *line = NULL;
 	char **cmds;
 	size_t len = 0;
-	ssize_t wr, read;
+	ssize_t wr;
 	char *start = "$ ";
 	int a = 0;
 
@@ -18,29 +18,14 @@ int main(void)
 		wr = write(STDOUT_FILENO, start, 2);
 	if (wr == -1)
 		exit(EXIT_FAILURE);
-	while (STDOUT_FILENO) /*(read_input(line))*/ /*((read = getline(&line, &len, stdin)))
-	{
-		if (read == EOF)
-		{
-			if (isatty(STDIN_FILENO))
-				write(STDIN_FILENO, "\n", 1);
-			free(line);
-			exit(EXIT_SUCCESS);
-		}
-		if (read == 0)
-		{
-			if (isatty(STDIN_FILENO))
-				write(STDIN_FILENO, "\n", 1);
-			continue;
-		}
-		if (read == 1)
-		{
-			if (isatty(STDIN_FILENO))
-				write(STDOUT_FILENO, start, 2);
-			continue;
-		}*/
+	while (STDOUT_FILENO)
 	{
 		line = read_input();
+		if (line == 0)
+		{
+			continue;
+		
+		}
 		cmds = strtokarray(line);
 		while (cmds[a])
 		{
@@ -61,7 +46,8 @@ int main(void)
 			freeptrarray(cmds);
 			exit(0);
 		}
-		execute_input(cmds);
+		if (cmds != NULL)
+			execute_input(cmds);
 		if (isatty(STDIN_FILENO))
 			wr = write(STDOUT_FILENO, start, 2);
 		free(line);
