@@ -52,3 +52,21 @@ int _putchar(char c)
 {
 	return (write(1, &c, 1));
 }
+/**
+* _strncmp - function
+* @s1: string to compare to
+* @s2: string to compare
+* @n: # of characters to compare to s1
+*
+* Description: function to compare to strings up to the nth character
+* Return: 0 Success
+*/
+int _strncmp(const char *s1, const char *s2, size_t n)
+{
+	while (n--)
+	{
+		if (*s1++ != *s2++)
+			return (*(unsigned char *)(s1 - 1) - *(unsigned char *)(s2 - 1));
+	}
+	return (0);
+}

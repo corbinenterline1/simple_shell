@@ -1,10 +1,9 @@
 #include "holberton.h"
-
 /**
-* main - Entry point to shell program
+* main - Entry point for program hsh
 *
-* Description: Simple shell program
-* Return: 0 Successful
+* Description: program for shell implementation
+* Return: 0 Always Successful
 */
 int main(void)
 {
@@ -13,15 +12,13 @@ int main(void)
 	size_t len = 0;
 	ssize_t wr, read;
 	char *start = "$ ";
-	pid_t child;
-	int a = 0, pidstatus;
-	struct stat sstat;
+	int a = 0;
 
 	if (isatty(STDIN_FILENO))
 		wr = write(STDOUT_FILENO, start, 2);
 	if (wr == -1)
 		exit(EXIT_FAILURE);
-	while ((read = getline(&line, &len, stdin)))
+	while (STDOUT_FILENO) /*(read_input(line))*/ /*((read = getline(&line, &len, stdin)))
 	{
 		if (read == EOF)
 		{
@@ -36,6 +33,14 @@ int main(void)
 				write(STDIN_FILENO, "\n", 1);
 			continue;
 		}
+		if (read == 1)
+		{
+			if (isatty(STDIN_FILENO))
+				write(STDOUT_FILENO, start, 2);
+			continue;
+		}*/
+	{
+		line = read_input();
 		cmds = strtokarray(line);
 		while (cmds[a])
 		{
@@ -46,7 +51,7 @@ int main(void)
 		{
 			free(line);
 			if (isatty(STDIN_FILENO))
-				wr = write(STDOUT_FILENO, start, 2);
+				write(STDOUT_FILENO, start, 2);
 			a = len = 0;
 			continue;
 		}
@@ -56,32 +61,10 @@ int main(void)
 			freeptrarray(cmds);
 			exit(0);
 		}
-		child = fork();
-		if (child == -1)/* Fork failed */
-		{
-			perror("./hsh");
-			exit(EXIT_FAILURE);
-		}
-		else if (child == 0)/* I am the child! */
-		{
-			if (stat(cmds[0], &sstat) == 0)
-				execve(cmds[0], cmds, NULL);
-			else
-			{
-				perror("./hsh");
-				free(line);
-				freeptrarray(cmds);
-				exit(EXIT_SUCCESS);
-			}
-		}
-		else/* pid above 0, so thats ppid. wait until child ends */
-		{
-			waitpid(child, &pidstatus, WUNTRACED);
-			free(line);
-			freeptrarray(cmds);
-		}
+		execute_input(cmds);
 		if (isatty(STDIN_FILENO))
 			wr = write(STDOUT_FILENO, start, 2);
+		free(line);
 		a = len = 0;
 		line = NULL;
 	}
