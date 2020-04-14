@@ -10,11 +10,12 @@
 #include <fcntl.h>
 void _printppid(void);
 int _putchar(char c);
-char *read_input(char *s);
+char *read_input(void);/* was char *s)*/
 char **strtokarray(char *str);
 void freeptrarray(char **ptr);
 char *_strncpy(char *dest, char *src, int n);
 int _strlen(char *s);
+int _strncmp(const char* s1, const char* s2, size_t n);
 int execute_input(char *argv[]);
 char *_getenv(const char *name);
 extern char **environ;
