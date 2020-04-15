@@ -33,7 +33,7 @@ int main(__attribute__((unused))int ac,
 				write(STDOUT_FILENO, "$ ", 2);
 			continue;
 		}
-		if (_strcmp("exit", cmds[0]) == 0)
+		if ((_strcmp("exit", cmds[0]) == 0) || (_strcmp("EXIT", cmds[0]) == 0))
 		{
 			freeptrarray(cmds);
 			exit(EXIT_SUCCESS);
