@@ -21,14 +21,16 @@ Example 1:
 echo "/bin/ls" | ./hsh
 .TP
 Example 2:
-cat test_ls_2 | ./hsh
+cat some_file | ./hsh
 .SH BUILTIN COMMANDS
 .TP
 .B exit
-.I [n]
-Cause the shell to exit with a status of n. If n is omitted, the exit status is thatof the last command executed. A trap on EXIT is executed before the shell terminates.
+Cause the shell to exit with a status of 0. To exit, type exit or EXIT into the command line.
+.TP
+.B env
+Lists the current environment, where environment variables are stored. The list is an array of strings, with the following format: var=value, where var is the name of the variable and value its value. To invoke, type env into the command line.
 .SH RETURN VALUE
-The return value of a simple command is its exit status.
+The return value of a simple command is its exit status. If exited successfully, the exit value will be 0. 
 .SH EXAMPLE
 .SH SEE ALSO
 .I sh(1)
