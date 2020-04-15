@@ -39,4 +39,5 @@ void env_print(char **env);
 char *pathandfree(char *arg);
 char *pathchecker(list_p **head, char *arg);
 int spacecheck(char *line);
+int _strcmp(char *s1, char *s2);
 #endif /*HOLBERTON_H*/

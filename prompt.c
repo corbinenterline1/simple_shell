@@ -36,7 +36,7 @@ int main(__attribute__((unused))int ac,
 		if (_strcmp("exit", cmds[0]) == 0)
 		{
 			freeptrarray(cmds);
-			exit(0);
+			exit(EXIT_SUCCESS);
 		}
 		if (_strcmp("env", cmds[0]) == 0)
 		{
