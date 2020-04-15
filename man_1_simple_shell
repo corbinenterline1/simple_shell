@@ -13,7 +13,8 @@ hsh is an sh-compatible command language interpreter intended for simple impleme
 .B This simple shell program has the capabilities to do the following:
 Read and execute commands with or without arguments, handle errors, handle EOF, handle PATH, execute two builtins: exit and env. It does not handle variables, comments, cd command, logical operators. 
 .SH INVOCATION
-To invoke the interactive mode of hsh, 
+.TB
+To invoke the interactive mode of hsh 
 .B ./hsh
 \ is typed into the emulator command line. To invoke the non-interactive mode, pipe command through
 .I echo
@@ -34,11 +35,11 @@ Cause the shell to exit with a status of 0. To exit, type exit or EXIT into the 
 Lists the current environment, where environment variables are stored. The list is an array of strings, with the following format: var=value, where var is the name of the variable and value its value. To invoke, type env into the command line.
 .SH RETURN VALUE
 The return value of a simple command is its exit status. If exited successfully, the exit value will be 0. 
-.SH EXAMPLE
 .SH SEE ALSO
 .I sh(1)
 .SH NOTE
+Still work in progress.
 .SH BUGS
-No known bugs.... ?
+Bugs are known, but not identifiable at this moment...
 .SH AUTHOR
 Corbin Enterline and Jill Rogers.
