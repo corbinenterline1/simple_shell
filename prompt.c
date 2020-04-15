@@ -33,12 +33,12 @@ int main(__attribute__((unused))int ac,
 				write(STDOUT_FILENO, "$ ", 2);
 			continue;
 		}
-		if (strcmp("exit", cmds[0]) == 0)
+		if (_strcmp("exit", cmds[0]) == 0)
 		{
 			freeptrarray(cmds);
 			exit(0);
 		}
-		if (strcmp("env", cmds[0]) == 0)
+		if (_strcmp("env", cmds[0]) == 0)
 		{
 			env_print(env);
 			freeptrarray(cmds);
