@@ -33,7 +33,11 @@
 		* _strncmp
 		* str_concat
 	* supp_functions02.c
-		*  
+		* _getenv
+		* strtokarray
+		* execute_input
+		* freeptrarray
+		* _strcmp  
 0. README, man, AUTHORS - repo: simple_shell, README.md, man_1_simple_shell, AUTHORS
 	* Write a README
 	* Write a man for your shell.
