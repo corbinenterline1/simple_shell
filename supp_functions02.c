@@ -79,14 +79,14 @@ char **strtokarray(char *str)
 	return (tokarray);
 }
 /**
-* execute_input - function
-* @argv: arguments in which to execute
-* @env: environment
-*
-* Description: Program to exe ls -l /tmp in 5 child processes
-* Return: Always 0 Success!
+* execute_input - Executes command via child process
+* @av: argument vector from main, used for program name at av[0]
+* @cmds: strtok array of directories from PATH
+* @env: environment from main. Used for execve
+* @count: line count for shell
+* Return: Always 0 after child completes
 */
-int execute_input(char *argv[], char **env)
+int execute_input(char **av, char **cmds, char **env, int count)
 {
 	int status;
 	struct stat sstat;
@@ -101,26 +101,21 @@ int execute_input(char *argv[], char **env)
 	}
 	else if (child == 0)/* I am the child! */
 	{
-		if (stat(argv[0], &sstat) == 0)
-			execve(argv[0], argv, env);
+		if (stat(cmds[0], &sstat) == 0)
+			execve(cmds[0], cmds, env);
 		else
 		{
-			str = pathandfree(argv[0]);
+			str = pathandfree(cmds[0]);
 			if (str == NULL)
-			{
-				perror("./hsh");
-				freeptrarray(argv);
-				free(str);
-				exit(EXIT_FAILURE);
-			}
+				errortime(av, cmds, count);
 			else
-				execve(str, argv, env);
+				execve(str, cmds, env);
 		}
 	}
 	else/* pid above 0, so thats ppid. wait until child ends */
 	{
 		waitpid(child, &status, WUNTRACED);
-		freeptrarray(argv);
+		freeptrarray(cmds);
 		/*free(str);*/
 	}
 	return (0);

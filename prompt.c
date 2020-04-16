@@ -44,7 +44,7 @@ int main(__attribute__((unused))int ac,
 			freeptrarray(cmds);
 			continue;
 		}
-		execute_input(cmds, env);
+		execute_input(av, cmds, env, count);
 		if (isatty(STDIN_FILENO))
 			write(STDOUT_FILENO, "$ ", 2);
 	}
