@@ -70,6 +70,7 @@ int _strncmp(const char *s1, const char *s2, size_t n)
 	}
 	return (0);
 }
+
 /**
 * str_concat - function
 * @s1: string to add to
@@ -82,29 +83,31 @@ char *str_concat(char *s1, char *s2)
 {
 	char *cpy = NULL;
 	int t, a, b;
+	char *s1c = NULL, *s2c = NULL;
 
-	t = a = b = 0;
-	if (s1 == NULL)
+	s1c = s1;
+	s2c = s2;
+	if (s1c == NULL)
 	{
-		s1 = malloc(1);
-		*s1 = '\0';
+		s1c = malloc(1);
+		*s1c = '\0';
 	}
-	if (s2 == NULL)
+	if (s2c == NULL)
 	{
-		s2 = malloc(1);
-		*s2 = '\0';
+		s2c = malloc(1);
+		*s2c = '\0';
 	}
-	t = _strlen(s1);
-	t += _strlen(s2);
+	t = _strlen(s1c);
+	t += _strlen(s2c);
 	t += 1;
 	cpy = malloc(sizeof(char) * t);
 	if (cpy == NULL)
 		return (NULL);
-	for (a = 0; s1[a] != '\0'; a++)
-		cpy[a] = s1[a];
-	for (b = 0; a != t && s2[b] != '\0'; b++, a++)
+	for (a = 0; s1c[a] != '\0'; a++)
+		cpy[a] = s1c[a];
+	for (b = 0; a != t && s2c[b] != '\0'; b++, a++)
 	{
-		cpy[a] = s2[b];
+		cpy[a] = s2c[b];
 	}
 	cpy[a] = '\0';
 	return (cpy);

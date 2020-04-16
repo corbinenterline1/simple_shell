@@ -10,7 +10,7 @@ int main(__attribute__((unused))int ac,
 	__attribute((unused))char **av, char **env)
 {
 	char *line = NULL;
-	char **cmds;
+	char **cmds, **avc = av, **envc = env;
 	int count = 0;
 
 	if (isatty(STDIN_FILENO))
@@ -44,7 +44,7 @@ int main(__attribute__((unused))int ac,
 			freeptrarray(cmds);
 			continue;
 		}
-		execute_input(av, cmds, env, count);
+		execute_input(avc, cmds, envc, count);
 		if (isatty(STDIN_FILENO))
 			write(STDOUT_FILENO, "$ ", 2);
 	}

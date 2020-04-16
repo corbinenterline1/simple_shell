@@ -11,16 +11,18 @@ char *pathchecker(list_p **head, char *arg)
 {
 	struct stat statty;
 	char *slas = "/";
-	char *str = NULL, *slarg = NULL, *tester = NULL;
+	char *str = NULL, *slarg = NULL, *tester = NULL, *carg = NULL;
 	list_p *cpy;
+	int i = 0;
 
 	cpy = *head;
-
-	slarg = str_concat(slas, arg);
+	carg = arg;
+	slarg = str_concat(slas, carg);
 	while (cpy)
 	{
 		str = cpy->str;
 		tester = str_concat(str, slarg);
+		i++;
 		if (stat(tester, &statty) == 0)
 		{
 			free(slarg);
@@ -67,29 +69,32 @@ list_p *pathlist(void)
  */
 list_p *add_node(list_p **head, char *str)
 {
-	list_p *tmp;
-	char *newstr = NULL;
-	int l;
+	list_p *new = NULL, *last = NULL;
+	char *newstr;
 
-	/*tmp->str = NULL;*/
-	tmp = malloc(sizeof(list_p));
-	if (tmp == NULL)
+	last = *head;/* used in while loop */
+	/* allocate new node */
+	new = malloc(sizeof(list_p));
+	if (new == NULL)
 		return (NULL);
-	l = _strlen(str);
-	l += 1;
-	newstr = malloc(sizeof(char) * (l));
-	if (newstr == NULL)
+	/* put in data */
+	newstr = strdup(str);
+	new->str = newstr;
+	/* new node is last, so make next point to NULL */
+	new->next = NULL;
+	/* if linked list is empty, make new node head */
+	if (*head == NULL)
 	{
-		free(tmp);
-		return (NULL);
+		*head = new;
+		return (new);
 	}
-	newstr = _strncpy(newstr, str, l);
-	tmp->str = newstr;
-	tmp->next = *head;
-	*head = tmp;
-	return (tmp);
+	/* traverse to last node */
+	while (last->next != NULL)
+		last = last->next;
+	/* change next of last node */
+	last->next = new;
+	return (new);
 }
-
 /**
  * createpathlist - creates new singly linked list from first dir of PATH
  * @str: input string (in this instance, first directory of PATH)
