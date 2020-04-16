@@ -32,7 +32,7 @@ void errortime(char **av, char **cmds, int count)
 	write(STDERR_FILENO, nf, 10);
 	free(its);
 	freeptrarray(cmds);
-	exit(127);
+	exit(EXIT_SUCCESS);
 }
 
 /**
