@@ -118,7 +118,7 @@ int execute_input(char **av, char **cmds, char **env, int count)
 		freeptrarray(cmds);
 		/*free(str);*/
 	}
-	return (0);
+	return (status);
 }
 /**
 * freeptrarray - frees all pointers from the array

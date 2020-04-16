@@ -92,8 +92,22 @@ void _halt(int sig)
 * @str: arg to free and exit
 * Return: 0
 */
-void freeptrarrayandexit(char **str)
+void freeptrarrayandexit(char **str, int stat)
 {
+	int s = 0;
+
+	if (str[1] != NULL)
+	{
+		s = _atoi(str[1]);
+		if (s < 0 || s >= 125)
+		{
+			freeptrarray(str);
+			perror("Error: illegal number\n");
+			exit(EXIT_SUCCESS);
+		}
+	}
+	else
+		s = WEXITSTATUS(stat);
 	freeptrarray(str);
-	exit(0);
+	exit(s);
 }

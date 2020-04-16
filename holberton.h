@@ -41,11 +41,12 @@ char *pathandfree(char *arg);
 char *pathchecker(list_p **head, char *arg);
 int spacecheck(char *line);
 void _halt(int sig);
-void freeptrarrayandexit(char **str);
+void freeptrarrayandexit(char **str, int stat);
 int _strcmp(char *s1, char *s2);
 void errortime(char **av, char **cmds, int count);
 char *_itoa(int value, char *buffer, int base);
 int _abs(int a);
 char *_reverse(char *buffer, int i, int j);
 void _swap(char *x, char *y);
+int _atoi(char *str);
 #endif /*HOLBERTON_H*/

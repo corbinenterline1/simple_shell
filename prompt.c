@@ -11,7 +11,7 @@ int main(__attribute__((unused))int ac,
 {
 	char *line = NULL;
 	char **cmds, **avc = av, **envc = env;
-	int count = 0;
+	int count = 0, status = 0;
 
 	if (isatty(STDIN_FILENO))
 		write(STDOUT_FILENO, "$ ", 2);
@@ -37,14 +37,14 @@ int main(__attribute__((unused))int ac,
 			continue;
 		}
 		if (_strcmp("exit", cmds[0]) == 0)
-			freeptrarrayandexit(cmds);
+			freeptrarrayandexit(cmds, status);
 		if (_strcmp("env", cmds[0]) == 0)
 		{
 			env_print(env);
 			freeptrarray(cmds);
 			continue;
 		}
-		execute_input(avc, cmds, envc, count);
+		status = execute_input(avc, cmds, envc, count);
 		if (isatty(STDIN_FILENO))
 			write(STDOUT_FILENO, "$ ", 2);
 	}
@@ -75,4 +75,26 @@ int spacecheck(char *line)
 			a++;
 	}
 	return (0);
+}
+
+/**
+ * _atoi - Converts string (representing an integer) and converts to int
+ * @str: input string
+ * Return: integer
+ */
+int _atoi(char *str)
+{
+	int r = 0, s = 1, i = 0;
+
+	if (str[0] == '-')
+	{
+		s = -1;
+		i++;
+	}
+	while (str[i] != '\0')
+	{
+		r = r * 10 + str[i] - '0';
+		++i;
+	}
+	return (s * r);
 }
