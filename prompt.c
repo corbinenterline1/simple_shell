@@ -9,20 +9,23 @@
 int main(__attribute__((unused))int ac,
 	__attribute((unused))char **av, char **env)
 {
-
 	char *line = NULL;
 	char **cmds;
+	int count = 0;
 
 	if (isatty(STDIN_FILENO))
 		write(STDOUT_FILENO, "$ ", 2);
+	signal(SIGINT, _halt);
 	while (STDOUT_FILENO)
 	{
+		count++;
 		line = read_input();
 		if (line == NULL)
 		{
 			free(line);
 			continue;
 		}
+
 		if (spacecheck(line) == 1)
 			continue;
 		cmds = strtokarray(line);
@@ -34,10 +37,7 @@ int main(__attribute__((unused))int ac,
 			continue;
 		}
 		if (_strcmp("exit", cmds[0]) == 0)
-		{
-			freeptrarray(cmds);
-			exit(0);
-		}
+			freeptrarrayandexit(cmds);
 		if (_strcmp("env", cmds[0]) == 0)
 		{
 			env_print(env);
