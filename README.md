@@ -9,6 +9,13 @@
 		* spacecheck
 		* _atoi
 	* read_input.c
+		* read_input
+		* env_print
+		* pathandfree
+		* _halt
+		* freeptrarrayandexit
+	* errortime.c
+		*
 0. README, man, AUTHORS - repo: simple_shell, README.md, man_1_simple_shell, AUTHORS
 	* Write a README
 	* Write a man for your shell.
