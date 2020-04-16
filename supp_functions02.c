@@ -81,11 +81,12 @@ char **strtokarray(char *str)
 /**
 * execute_input - function
 * @argv: arguments in which to execute
+* @env: environment
 *
 * Description: Program to exe ls -l /tmp in 5 child processes
 * Return: Always 0 Success!
 */
-int execute_input(char *argv[])
+int execute_input(char *argv[], char **env)
 {
 	int status;
 	struct stat sstat;
@@ -101,7 +102,7 @@ int execute_input(char *argv[])
 	else if (child == 0)/* I am the child! */
 	{
 		if (stat(argv[0], &sstat) == 0)
-			execve(argv[0], argv, NULL);
+			execve(argv[0], argv, env);
 		else
 		{
 			str = pathandfree(argv[0]);
@@ -113,7 +114,7 @@ int execute_input(char *argv[])
 				exit(EXIT_FAILURE);
 			}
 			else
-				execve(str, argv, NULL);
+				execve(str, argv, env);
 		}
 	}
 	else/* pid above 0, so thats ppid. wait until child ends */
