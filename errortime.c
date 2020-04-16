@@ -11,6 +11,14 @@ void errortime(char **av, char **cmds, int count)
 	char *its = NULL;
 	int c = count, l = 0;
 
+	if (isatty(STDIN_FILENO))
+	{
+		write(STDERR_FILENO, cmds[0], _strlen(cmds[0]));
+		write(STDERR_FILENO, colon, 2);
+		write(STDERR_FILENO, "command not found\n", 18);
+		freeptrarray(cmds);
+		exit(EXIT_FAILURE);
+	}
 	write(STDERR_FILENO, av[0], _strlen(av[0]));
 	write(STDERR_FILENO, colon, 2);
 	while (c != 0)
@@ -32,7 +40,7 @@ void errortime(char **av, char **cmds, int count)
 	write(STDERR_FILENO, nf, 10);
 	free(its);
 	freeptrarray(cmds);
-	exit(EXIT_SUCCESS);
+	exit(EXIT_FAILURE);
 }
 
 /**
