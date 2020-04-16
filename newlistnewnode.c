@@ -10,7 +10,7 @@
 char *pathchecker(list_p **head, char *arg)
 {
 	struct stat statty;
-	char *slas = "/";
+	char *slas = "/", *cw = ".";
 	char *str = NULL, *slarg = NULL, *tester = NULL, *carg = NULL;
 	list_p *cpy;
 	int i = 0;
@@ -28,13 +28,17 @@ char *pathchecker(list_p **head, char *arg)
 			free(slarg);
 			return (tester);
 		}
-		else
 		{
 		free(tester);
+		tester = NULL;
 		cpy = cpy->next;
 		}
 	}
+	tester = str_concat(cw, slarg);
 	free(slarg);
+	if (stat(tester, &statty) == 0)
+		return (tester);
+	free(tester);
 	return (NULL);
 }
 

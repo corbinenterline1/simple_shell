@@ -90,6 +90,7 @@ void _halt(int sig)
 /**
 * freeptrarrayandexit - function
 * @str: arg to free and exit
+* @stat: status counter from waitpid command
 * Return: 0
 */
 void freeptrarrayandexit(char **str, int stat)

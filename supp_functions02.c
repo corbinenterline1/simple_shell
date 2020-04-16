@@ -80,7 +80,7 @@ char **strtokarray(char *str)
 }
 /**
 * execute_input - Executes command via child process
-* @av: argument vector from main, used for program name at av[0]
+i* @av: argument vector from main, used for program name at av[0]
 * @cmds: strtok array of directories from PATH
 * @env: environment from main. Used for execve
 * @count: line count for shell
