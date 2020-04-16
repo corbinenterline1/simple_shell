@@ -81,8 +81,11 @@ char *pathandfree(char *arg)
 */
 void _halt(int sig)
 {
-	if (isatty(STDIN_FILENO))
-		write(STDOUT_FILENO, "\n$ ", 3);
+	if (sig == SIGINT)
+	{
+		if (isatty(STDIN_FILENO))
+			write(STDOUT_FILENO, "\n$ ", 3);
+	}
 }
 /**
 * freeptrarrayandexit - function
