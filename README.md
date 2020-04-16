@@ -27,7 +27,13 @@
 		* createpathlist
 		* free_list
 	* supp_functions.c
-		* 
+		* _strncpy
+		* _strlen
+		* _putchar
+		* _strncmp
+		* str_concat
+	* supp_functions02.c
+		*  
 0. README, man, AUTHORS - repo: simple_shell, README.md, man_1_simple_shell, AUTHORS
 	* Write a README
 	* Write a man for your shell.
