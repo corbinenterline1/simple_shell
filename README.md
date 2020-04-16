@@ -3,8 +3,12 @@
 [Holberton School C Programming-group project](https://github.com/corbinenterline1/simple_shell.git)
 
 ## The folder contains the group project "simple_shell" and associated tasks:
-00. File Contents:
-	* 
+00. Folder contents (28 functions, 1 header)
+	* prompt.c
+		* main program
+		* spacecheck
+		* _atoi
+	* read_input.c
 0. README, man, AUTHORS - repo: simple_shell, README.md, man_1_simple_shell, AUTHORS
 	* Write a README
 	* Write a man for your shell.
