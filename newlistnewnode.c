@@ -18,6 +18,17 @@ char *pathchecker(list_p **head, char *arg)
 	cpy = *head;
 	carg = arg;
 	slarg = str_concat(slas, carg);
+	tester = str_concat(cw, slarg);
+	if (stat(tester, &statty) == 0)
+	{
+		free(slarg);
+		return (tester);
+	}
+	else
+	{
+		free(tester);
+		tester = NULL;
+	}
 	while (cpy)
 	{
 		str = cpy->str;
@@ -34,11 +45,7 @@ char *pathchecker(list_p **head, char *arg)
 		cpy = cpy->next;
 		}
 	}
-	tester = str_concat(cw, slarg);
 	free(slarg);
-	if (stat(tester, &statty) == 0)
-		return (tester);
-	free(tester);
 	return (NULL);
 }
 
