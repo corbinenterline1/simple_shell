@@ -3,6 +3,8 @@
 [Holberton School C Programming-group project](https://github.com/corbinenterline1/simple_shell.git)
 
 ## The folder contains the group project "simple_shell" and associated tasks:
+00. File Contents:
+	* 
 0. README, man, AUTHORS - repo: simple_shell, README.md, man_1_simple_shell, AUTHORS
 	* Write a README
 	* Write a man for your shell.
