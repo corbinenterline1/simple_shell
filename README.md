@@ -15,7 +15,13 @@
 		* _halt
 		* freeptrarrayandexit
 	* errortime.c
-		*
+		* errortime
+		* _abs
+		* _reverse
+		* _swap
+		* _itoa
+	* newlistnewnode.c
+		* 
 0. README, man, AUTHORS - repo: simple_shell, README.md, man_1_simple_shell, AUTHORS
 	* Write a README
 	* Write a man for your shell.
