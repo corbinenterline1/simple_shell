@@ -42,4 +42,6 @@ char *pathchecker(list_p **head, char *arg);
 int spacecheck(char *line);
 void _halt(int sig);
 void freeptrarrayandexit(char **str);
+int _strcmp(char *s1, char *s2);
+
 #endif /*HOLBERTON_H*/
