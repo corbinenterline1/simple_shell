@@ -8,6 +8,7 @@
 #include <sys/stat.h>
 #include <unistd.h>
 #include <fcntl.h>
+#include <signal.h>
 void _printppid(void);
 int _putchar(char c);
 char *read_input(void);
@@ -39,5 +40,8 @@ void env_print(char **env);
 char *pathandfree(char *arg);
 char *pathchecker(list_p **head, char *arg);
 int spacecheck(char *line);
+void _halt(int sig);
+void freeptrarrayandexit(char **str);
 int _strcmp(char *s1, char *s2);
+
 #endif /*HOLBERTON_H*/

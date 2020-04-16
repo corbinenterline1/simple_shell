@@ -72,3 +72,25 @@ char *pathandfree(char *arg)
 		return (str);
 	}
 }
+/**
+* _halt - function
+* @sig: signal to look for
+*
+* Description: function to catch SIGINT ^C
+* Return: 0
+*/
+void _halt(int sig)
+{
+	if (isatty(STDIN_FILENO))
+		write(STDOUT_FILENO, "\n$ ", 3);
+}
+/**
+* freeptrarrayandexit - function
+* @str: arg to free and exit
+* Return: 0
+*/
+void freeptrarrayandexit(char **str)
+{
+	freeptrarray(str);
+	exit(0);
+}
