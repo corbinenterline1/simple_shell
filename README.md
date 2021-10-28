@@ -96,6 +96,7 @@ To get a local copy up and running follow these simple example steps.
 ### Prerequisites
 
 This guide assumes you are working in a Linux distribution. GCC is available in most Linux distributions pre-installed or already present in the primary repository.
+	
 For Debian-based distributions like Debian, Ubuntu, and Linux Mint, run:
    ```sh
    apt install build-essentials
