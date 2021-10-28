@@ -35,7 +35,7 @@
 <h3 align="center">Simple Shell</h3>
 
   <p align="center">
-    A simple shell recreation for learning purposes.  Created by Jill Rogers & Corbin Enterline at the end of the 2nd trimester of the Foundations year at Holberton school. 
+    A simple shell recreation for learning purposes.
     <br />
     <a href="https://github.com/corbinenterline1/simple_shell"><strong>Explore the docs »</strong></a>
     <br />
@@ -81,7 +81,7 @@
 
 [![Simple Shell Screenshot][product-screenshot]](https://example.com)
 
-Here's a blank template to get started: To avoid retyping too much info. Do a search and replace with your text editor for the following: `github_username`, `repo_name`, `twitter_handle`, `linkedin_username`, `email`, `email_client`, `project_title`, `project_description`
+Simple Shell was created by Corbin Enterline & Jill Rogers for a project in the second trimester of the Foundations year at Holberton School.  
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
@@ -95,11 +95,19 @@ To get a local copy up and running follow these simple example steps.
 
 ### Prerequisites
 
-This is an example of how to list things you need to use the software and how to install them.
-* npm
-  ```sh
-  npm install npm@latest -g
-  ```
+This guide assumes you are working in a Linux distribution. GCC is available in most Linux distributions pre-installed or already present in the primary repository.
+For Debian-based distributions like Debian, Ubuntu, and Linux Mint, run:
+   ```sh
+   apt install build-essentials
+   ```
+On RedHat-based distributions like RedHat Enterprise Linux, Fedora, CentOS, and Amazon Linux, run:
+   ```sh
+   yum group install 'Development Tools'
+   ```
+On Arch-based distribution like Arch & Manjaro, run:
+   ```sh
+   pacman -S base-devel
+   ```
 
 ### Installation
 
@@ -113,7 +121,6 @@ This is an example of how to list things you need to use the software and how to
    ```
 
 <p align="right">(<a href="#top">back to top</a>)</p>
-
 
 
 <!-- USAGE EXAMPLES -->
