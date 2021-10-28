@@ -1,10 +1,10 @@
 #include "holberton.h"
 /**
-* main - Entry point for program hsh
-* @ac: input argument count
-* @av: input argument vector
-* @env: environment list
-* Return: 0 Always Successful
+* main - Entry point for Simple Shell program.
+* @ac: Input argument count
+* @av: Input argument vector
+* @env: Environment list
+* Return: 0 Always successful
 */
 int main(__attribute__((unused))int ac,
 	__attribute((unused))char **av, char **env)
@@ -52,9 +52,9 @@ int main(__attribute__((unused))int ac,
 }
 
 /**
- * spacecheck - checks if line is all whitespace
- * @line: input line to check
- * Return: 1 if all whitespaces, 0 otherwise
+ * spacecheck - Checks if line is all whitespace
+ * @line: Input line to check
+ * Return: 1 If all whitespaces, 0 otherwise
  */
 int spacecheck(char *line)
 {
@@ -79,8 +79,8 @@ int spacecheck(char *line)
 
 /**
  * _atoi - Converts string (representing an integer) and converts to int
- * @str: input string
- * Return: integer
+ * @str: Input string
+ * Return: Integer
  */
 int _atoi(char *str)
 {

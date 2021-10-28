@@ -1,9 +1,9 @@
 #include "holberton.h"
 /**
- * errortime - prints error message, frees and exits child process
- * @av: argument vector from main (used for av[0] filename)
- * @cmds: cmd array made from strtokarray, used for first cmd
- * @count: line count from loop
+ * errortime - Prints error message, frees memory and exits child process
+ * @av: Argument vector from main (used for av[0] filename)
+ * @cmds: Cmd array made from strtokarray, used for first cmd
+ * @count: Line count from loop
  */
 void errortime(char **av, char **cmds, int count)
 {
@@ -77,8 +77,8 @@ char *_reverse(char *buffer, int i, int j)
 
 /**
  * _swap - Swaps two numbers
- * @x: first number
- * @y: second number
+ * @x: First number
+ * @y: Second number
  */
 void _swap(char *x, char *y)
 {
