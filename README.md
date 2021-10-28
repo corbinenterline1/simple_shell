@@ -1,76 +1,231 @@
-# 0x16-C, simple shell partner project
+<div id="top"></div>
+<!--
+*** Thanks for checking out the Best-README-Template. If you have a suggestion
+*** that would make this better, please fork the repo and create a pull request
+*** or simply open an issue with the tag "enhancement".
+*** Don't forget to give the project a star!
+*** Thanks again! Now go create something AMAZING! :D
+-->
 
-[Holberton School C Programming-group project](https://github.com/corbinenterline1/simple_shell.git)
 
-## The folder contains the group project "simple_shell" and associated tasks:
-00. Folder contents (28 functions, 1 header)
-	* prompt.c
-		* main program
-		* spacecheck
-		* _atoi
-	* read_input.c
-		* read_input
-		* env_print
-		* pathandfree
-		* _halt
-		* freeptrarrayandexit
-	* errortime.c
-		* errortime
-		* _abs
-		* _reverse
-		* _swap
-		* _itoa
-	* newlistnewnode.c
-		* pathchecker
-		* pathlist
-		* add_node
-		* createpathlist
-		* free_list
-	* supp_functions.c
-		* _strncpy
-		* _strlen
-		* _putchar
-		* _strncmp
-		* str_concat
-	* supp_functions02.c
-		*  
-0. README, man, AUTHORS - repo: simple_shell, README.md, man_1_simple_shell, AUTHORS
-	* Write a README
-	* Write a man for your shell.
-	* You should have an AUTHORS file at the root of your repository, listing all individuals having contributed content to the repository.
-1. Betty would be proud
-	* Write a beautiful code that passes the Betty checks
-3. Simple shell 0.1
-	* Write a UNIX command line interpreter.
-		Your shell should:
-		* Display a prompt and wait for the user to type a command. A command line always ends with a new line.
-		* The prompt is displayed again each time a command has been executed.
-		* The command lines are simple, no semicolons, no pipes, no redirections or any other advanced features.
-		* The command lines are made only of one word. No arguments will be passed to programs.
-		* If an executable cannot be found, print an error message and display the prompt again.
-		* Handle errors.
-		* You have to handle the end of file condition (Ctrl+D)
-5. Simple shell 0.2
-	* Simple shell 0.1+
-		* Handle command lines with arguments
-7. Simple shell 0.3
-	* Simple shell 0.2+
-		* Handle the PATH
-8. Simple shell 0.4
-	* Simple shell 0.3+
-		* Implement the exit built-in, that exits the shell
-		* Usage: exit
-		* You dont have to handle any argument to the built-in exit
-11. Simple shell 1.0
-	* Simple shell 0.4+
-		* Implement the env built-in, that prints the current environment
-22. What happens when you type ls-l in the shell - blogpost
-	* Write a blog post describing step by step what happens when you type ls -l and hit Enter in a shell. Try to explain every step you know of, going in as much details as you can, give examples and draw diagrams when needed. You should merge your previous knowledge of the shell with the specifics of how it works under the hoods (including syscalls).
-		* Have at least one picture, at the top of the blog post
-		* Publish your blog post on Medium or LinkedIn
-		* Share your blog post at least on LinkedIn
-		* Only one blog post by team
-		* The blog post must be done and published before the first deadline (it will be part of the manual review)
-		* Please, remember that these blogs must be written in English to further your technical ability in a variety of settings
-	* [blogpost here](https://www.linkedin.com/pulse/mini-shell-advanced-command-line-interpreter-jill-rogers)
 
+<!-- PROJECT SHIELDS -->
+<!--
+*** I'm using markdown "reference style" links for readability.
+*** Reference links are enclosed in brackets [ ] instead of parentheses ( ).
+*** See the bottom of this document for the declaration of the reference variables
+*** for contributors-url, forks-url, etc. This is an optional, concise syntax you may use.
+*** https://www.markdownguide.org/basic-syntax/#reference-style-links
+-->
+[![Contributors][contributors-shield]][contributors-url]
+[![Forks][forks-shield]][forks-url]
+[![Stargazers][stars-shield]][stars-url]
+[![Issues][issues-shield]][issues-url]
+[![MIT License][license-shield]][license-url]
+[![LinkedIn][linkedin-shield]][linkedin-url]
+
+
+
+<!-- PROJECT LOGO -->
+<br />
+<div align="center">
+  <a href="https://github.com/corbinenterline1/simple_shell">
+    <img src="images/simple_shell_logo.png" alt="Logo" width="80" height="80">
+  </a>
+
+<h3 align="center">Simple Shell</h3>
+
+  <p align="center">
+    project_description
+    <br />
+    <a href="https://github.com/corbinenterline1/simple_shell"><strong>Explore the docs »</strong></a>
+    <br />
+    <br />
+    <a href="https://github.com/corbinenterline1/simple_shell/issues">Report Bug</a>
+    ·
+    <a href="https://github.com/corbinenterline1/simple_shell/issues">Request Feature</a>
+  </p>
+</div>
+
+
+
+<!-- TABLE OF CONTENTS -->
+<details>
+  <summary>Table of Contents</summary>
+  <ol>
+    <li>
+      <a href="#about-the-project">About The Project</a>
+      <ul>
+        <li><a href="#built-with">Built With</a></li>
+      </ul>
+    </li>
+    <li>
+      <a href="#getting-started">Getting Started</a>
+      <ul>
+        <li><a href="#prerequisites">Prerequisites</a></li>
+        <li><a href="#installation">Installation</a></li>
+      </ul>
+    </li>
+    <li><a href="#usage">Usage</a></li>
+    <li><a href="#roadmap">Roadmap</a></li>
+    <li><a href="#contributing">Contributing</a></li>
+    <li><a href="#license">License</a></li>
+    <li><a href="#contact">Contact</a></li>
+    <li><a href="#acknowledgments">Acknowledgments</a></li>
+  </ol>
+</details>
+
+
+
+<!-- ABOUT THE PROJECT -->
+## About The Project
+
+[![Simple Shell Screenshot][product-screenshot]](https://example.com)
+
+Here's a blank template to get started: To avoid retyping too much info. Do a search and replace with your text editor for the following: `github_username`, `repo_name`, `twitter_handle`, `linkedin_username`, `email`, `email_client`, `project_title`, `project_description`
+
+<p align="right">(<a href="#top">back to top</a>)</p>
+
+
+
+### Built With
+
+* [Next.js](https://nextjs.org/)
+* [React.js](https://reactjs.org/)
+* [Vue.js](https://vuejs.org/)
+* [Angular](https://angular.io/)
+* [Svelte](https://svelte.dev/)
+* [Laravel](https://laravel.com)
+* [Bootstrap](https://getbootstrap.com)
+* [JQuery](https://jquery.com)
+
+<p align="right">(<a href="#top">back to top</a>)</p>
+
+
+
+<!-- GETTING STARTED -->
+## Getting Started
+
+This is an example of how you may give instructions on setting up your project locally.
+To get a local copy up and running follow these simple example steps.
+
+### Prerequisites
+
+This is an example of how to list things you need to use the software and how to install them.
+* npm
+  ```sh
+  npm install npm@latest -g
+  ```
+
+### Installation
+
+1. Clone the repo
+   ```sh
+   git clone https://github.com/corbinenterline1/simple_shell.git
+   ```
+2. Compile the program
+   ```sh
+   gcc -Wall -Werror -Wextra -pedantic -std=gnu89 *.c -o hsh
+   ```
+
+<p align="right">(<a href="#top">back to top</a>)</p>
+
+
+
+<!-- USAGE EXAMPLES -->
+## Usage
+
+To use the shell in interactive mode, type in the following and hit enter:
+   ```sh
+   ./hsh
+   ```
+For non-interactive mode you would call ./hsh.  An example:
+   ```sh
+   echo "/bin/ls" | ./hsh
+   ```
+To exit interactive mode:
+   ```sh
+   exit
+   ```
+
+
+<p align="right">(<a href="#top">back to top</a>)</p>
+
+
+
+<!-- ROADMAP -->
+## Roadmap
+
+- As this was a school project from the first year of school, this project is not being updated.
+- However, [Corbin Enterline](https://github.com/corbinenterline1) will be revisiting this project, and will post a link to the enhanced version once it's online.
+
+See the [open issues](https://github.com/github_username/repo_name/issues) for a full list of proposed features (and known issues).
+
+<p align="right">(<a href="#top">back to top</a>)</p>
+
+
+
+<!-- CONTRIBUTING -->
+## Contributing
+
+Contributions are what make the open source community such an amazing place to learn, inspire, and create. Any contributions you make are **greatly appreciated**.
+
+If you have a suggestion that would make this better, please fork the repo and create a pull request. You can also simply open an issue with the tag "enhancement".
+Don't forget to give the project a star! Thanks again!
+
+1. Fork the Project
+2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the Branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
+
+<p align="right">(<a href="#top">back to top</a>)</p>
+
+
+
+<!-- LICENSE -->
+## License
+
+Distributed under the MIT License. See `LICENSE.txt` for more information.
+
+<p align="right">(<a href="#top">back to top</a>)</p>
+
+
+
+<!-- CONTACT -->
+## Contact
+
+Corbin Enterline - [@nibroc_corbin](https://twitter.com/nibroc_corbin) - [LinkedIn](https://www.linkedin.com/in/corbin-enterline-87451247/)
+
+Jill Rogers - [@JilRoge7](https://twitter.com/JilRoge7) - [LinkedIn](https://www.linkedin.com/in/jill-rogers-ba29313a/)
+
+Project Link: [https://github.com/corbinenterline1/simple_shell](https://github.com/corbinenterline1/simple_shell)
+
+<p align="right">(<a href="#top">back to top</a>)</p>
+
+
+
+<!-- ACKNOWLEDGMENTS -->
+## Acknowledgments
+
+* [Best-README-Template](https://github.com/othneildrew/Best-README-Template)
+
+<p align="right">(<a href="#top">back to top</a>)</p>
+
+
+
+<!-- MARKDOWN LINKS & IMAGES -->
+<!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
+[contributors-shield]: https://img.shields.io/github/contributors/github_username/repo_name.svg?style=for-the-badge
+[contributors-url]: https://github.com/github_username/repo_name/graphs/contributors
+[forks-shield]: https://img.shields.io/github/forks/github_username/repo_name.svg?style=for-the-badge
+[forks-url]: https://github.com/github_username/repo_name/network/members
+[stars-shield]: https://img.shields.io/github/stars/github_username/repo_name.svg?style=for-the-badge
+[stars-url]: https://github.com/github_username/repo_name/stargazers
+[issues-shield]: https://img.shields.io/github/issues/github_username/repo_name.svg?style=for-the-badge
+[issues-url]: https://github.com/github_username/repo_name/issues
+[license-shield]: https://img.shields.io/github/license/github_username/repo_name.svg?style=for-the-badge
+[license-url]: https://github.com/github_username/repo_name/blob/master/LICENSE.txt
+[linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
+[linkedin-url]: https://linkedin.com/in/linkedin_username
+[product-screenshot]: images/screenshot.png
